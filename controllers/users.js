@@ -26,7 +26,9 @@ router.post('/signup', (req, res) => {
 
 // Sign currently existing user in
 router.post('/signin', (req, res) => {
-    User.findOne({ username: req.body.username }).then(user => {
+    // Important to specify the projection of a password field here because it's propery
+    // is set to select: false in the User model which hides it from queries
+    User.findOne({ username: req.body.username }, 'username password').then(user => {
         if (user) {
             user.comparePassword(req.body.password, (error, matched) => {
                 if (matched) {
@@ -34,7 +36,7 @@ router.post('/signin', (req, res) => {
                     res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
                     res.redirect('/');
                 } else {
-                    res.redirect('/signin?error=Incorrect%20Password');
+                    res.redirect(`/signin?error=${error.message}`);
                 }
             });
         } else {
