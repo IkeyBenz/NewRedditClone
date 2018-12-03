@@ -1,0 +1,8 @@
+<div class="container">
+    <h1>{{post.title}}</h1>
+    <h4>{{post.content}}</h4>
+    <a href="/users/{{post.author._id}}">
+        <p>{{post.author.username}}</p>
+    </a>
+    <p>Created: {{post.createdAt}} Updated: {{post.updatedAt}}</p>
+</div>

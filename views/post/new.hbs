@@ -1,0 +1,20 @@
+<form action="/posts" method="POST" class="container">
+
+    <div class="form-group">
+        <label for="">Title:</label>
+        <input type="text" class="form-control" name="title" value="{{post.title}}">
+    </div>
+
+    <div class="form-group">
+        <label for="">Content:</label>
+        <input type="text" class="form-control" name="content" value="{{post.content}}">
+    </div>
+
+    <div class="form-group">
+        <label for="">Url:</label>
+        <input type="text" class="form-control" name="url" value="{{post.url}}">
+    </div>
+
+    <input type="hidden" name="author" value="{{user._id}}">
+    <button type="submit">{{#if post}}Update{{else}}Post{{/if}}</button>
+</form>

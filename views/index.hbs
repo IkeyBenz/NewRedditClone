@@ -1,0 +1,11 @@
+<div class="container">
+    <ul class="list-group">
+        {{#each posts}}
+        <a class="list-group-item" href="/posts/{{this._id}}">
+            <h2>{{this.title}}</h2>
+            <h4>{{this.author.username}}</h4>
+            <p>{{this.content}}</p>
+        </a>
+        {{/each}}
+    </ul>
+</div>
