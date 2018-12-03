@@ -28,9 +28,12 @@ module.exports = function (app) {
 
     // Read specific post
     app.get('/posts/:id', (req, res) => {
-        Post.findById(req.params.id).populate('author').then(post => {
-            res.render('post/show', { post: post });
-        });
+        Post.findById(req.params.id)
+            .populate('author')
+            .populate({ path: 'comments', populate: { path: 'author', model: 'User' } })
+            .then(post => {
+                res.render('post/show', { post: post });
+            });
     });
 
     // Get update post form

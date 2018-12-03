@@ -5,4 +5,22 @@
         <p>{{post.author.username}}</p>
     </a>
     <p>Created: {{post.createdAt}} Updated: {{post.updatedAt}}</p>
+    <h4>Comments:</h4>
+    <ul class="list-group">
+        {{#each post.comments}}
+        <ul class="list-group-item">
+            <p>{{this.content}}</p>
+            <a href="/users/{{this.author._id}}">
+                <h6>{{this.author.username}}</h6>
+            </a>
+        </ul>
+        {{/each}}
+    </ul>
+    {{#if authenticatedUser}}
+    <form action="/posts/{{post._id}}/comments/" method="post">
+        <input type="text" name="content" placeholder="Comment as {{authenticatedUser.username}}">
+        <input type="hidden" name="author" value="{{authenticatedUser._id}}">
+        <input type="hidden" name="post" value="{{post._id}}">
+    </form>
+    {{/if}}
 </div>

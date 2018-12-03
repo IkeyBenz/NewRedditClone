@@ -15,9 +15,9 @@ app.use(require('./middleware/checkAuth'));
 app.use(express.static('public'));
 
 // Controllers
-app.use(require('./controllers/miscRoutes'));
 app.use(require('./controllers/users'));
 require('./controllers/posts')(app);
+require('./controllers/comments')(app);
 
 app.listen(5000, function () {
     require('./data/database');
