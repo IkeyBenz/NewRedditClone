@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const User = require('../models/user');
 module.exports = function (app) {
 
     // Get new post form
@@ -17,6 +18,8 @@ module.exports = function (app) {
     app.post('/posts', (req, res) => {
         const newPost = new Post(req.body);
         newPost.save().then(post => {
+            return User.findByIdAndUpdate(req.body.author, { $push: { posts: post } })
+        }).then(() => {
             res.redirect('/?success=Successfully%20created%20new%20post');
         }).catch(error => {
             res.redirect(`/?error=${error.message}`);
@@ -25,8 +28,8 @@ module.exports = function (app) {
 
     // Read specific post
     app.get('/posts/:id', (req, res) => {
-        Post.findById(req.params.id).then(post => {
-            res.render('post/show', { posts: post });
+        Post.findById(req.params.id).populate('author').then(post => {
+            res.render('post/show', { post: post });
         });
     });
 

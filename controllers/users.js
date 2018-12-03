@@ -51,7 +51,7 @@ router.get('/signout', (req, res) => {
 });
 
 router.get('/users/:id', (req, res) => {
-    User.findById(req.params.id).then(user => {
+    User.findById(req.params.id).populate('posts').then(user => {
         res.render('user/profile', { user: user });
     });
 });

@@ -1,0 +1,19 @@
+<h1>Hey there, this is {{user.username}}'s profile page!</h1>
+<h5>{{user.username}}'s posts:</h5>
+<ul class="list-group">
+    {{#each user.posts}}
+    <a class="list-group-item" href="/posts/{{this._id}}">
+        <h3>{{this.title}}</h3>
+        <p>{{this.createdAt}}</p>
+    </a>
+    {{/each}}
+</ul>
+<h5>{{user.username}}'s comments:</h5>
+<ul class="list-group">
+    {{#each user.comments}}
+    <a class="list-group-item" href="/posts/{{this.post._id}}">
+        <h3>{{this.content}}</h3>
+        <p>{{this.createdAt}}</p>
+    </a>
+    {{/each}}
+</ul>
