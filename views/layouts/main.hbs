@@ -12,23 +12,23 @@
 <body>
     <div class="alert alert-success" style="display: none;"></div>
     <div class="alert alert-danger" style="display: none;"></div>
-    <nav class="navbar">
+    <nav class="navbar bg-dark">
         <ul class="nav">
-            <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="/" class="nav-link text-white">Home</a></li>
             {{#if authenticatedUser}}
-            <li class="nav-item"><a href="/posts/new" class="nav-link">Create Post</a></li>
+            <li class="nav-item"><a href="/posts/new" class="nav-link text-white">Create Post</a></li>
             {{/if}}
         </ul>
         <ul class="nav right">
             {{#if authenticatedUser}}
-            <li class="nav-item"><a href="/signout" class="nav-link">Sign Out</a></li>
+            <li class="nav-item"><a href="/signout" class="nav-link text-white">Sign Out</a></li>
             {{else}}
-            <li class="nav-item"><a href="/signup" class="nav-link">Sign Up</a></li>
-            <li class="nav-item"><a href="/signin" class="nav-link">Sign In</a></li>
+            <li class="nav-item"><a href="/signup" class="nav-link text-white">Sign Up</a></li>
+            <li class="nav-item"><a href="/signin" class="nav-link text-white">Sign In</a></li>
             {{/if}}
         </ul>
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top: 50px;">
         {{{body}}}
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

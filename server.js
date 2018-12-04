@@ -6,7 +6,11 @@ const app = express();
 require('dotenv').config();
 
 // Middleware
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs' }));
+app.engine('hbs', exphbs({
+    defaultLayout: 'main',
+    extname: 'hbs',
+    helpers: require('./handlebarsHelpers')
+}));
 app.set('view engine', 'hbs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

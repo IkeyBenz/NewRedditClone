@@ -30,7 +30,7 @@ module.exports = function (app) {
     app.get('/posts/:id', (req, res) => {
         Post.findById(req.params.id)
             .populate('author')
-            .populate({ path: 'comments', populate: { path: 'author', model: 'User' } })
+            .populate({ path: 'comments', populate: { path: 'author' } })
             .then(post => {
                 res.render('post/show', { post: post });
             });

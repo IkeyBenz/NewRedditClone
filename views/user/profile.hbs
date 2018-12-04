@@ -17,3 +17,7 @@
     </a>
     {{/each}}
 </ul>
+{{#ifEquals authenticatedUser._id user._id}}
+<h1>YOU ARE AUTHORIZED TO EDIT EVERYTHING ON THIS PAGE :D</h1>
+
+{{/ifEquals}}
