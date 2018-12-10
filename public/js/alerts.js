@@ -16,6 +16,6 @@ function checkForSuccess(link) {
         const msg = link.slice(link.indexOf('success') + 8);
         $('.alert-success').text(decodeURIComponent(msg));
         $('.alert-success').show();
-        // setTimeout(() => { $('.alert-success').hide() }, 4000);
+        setTimeout(() => { $('.alert-success').hide() }, 4000);
     }
 }

@@ -2,19 +2,19 @@ const Post = require('../models/post');
 const User = require('../models/user');
 module.exports = function (app) {
 
-    // Get new post form
+    // GET new post form
     app.get('/posts/new', (req, res) => {
         res.render('post/new');
     });
 
+    // GET home page
     app.get('/', (req, res) => {
         Post.find({}).populate('author').then(posts => {
-            console.log(posts);
             res.render('index', { posts: posts });
         });
     });
 
-    // Create new post
+    // CREATE new post
     app.post('/posts', (req, res) => {
         const newPost = new Post(req.body);
         newPost.save().then(post => {
@@ -26,8 +26,9 @@ module.exports = function (app) {
         });
     });
 
-    // Read specific post
+    // READ specific post
     app.get('/posts/:id', (req, res) => {
+        console.log('yer');
         Post.findById(req.params.id)
             .populate('author')
             .populate({ path: 'comments', populate: { path: 'author' } })
@@ -36,27 +37,41 @@ module.exports = function (app) {
             });
     });
 
-    // Get update post form
+    // GET update post form
     app.get('/posts/:id/update', (req, res) => {
         Post.findById(req.params.id).then(post => {
             res.render('posts/new', { post: post });
         });
     });
 
-    // Update sepcific post
+    // UPDATE sepcific post
     app.patch('/posts/:id', (req, res) => {
-        Post.findByIdAndUpdate(req.params.id, req.body).then(post => {
-            res.redirect(`/?success=Post%20was%20successfully%updated`);
+        Post.findById(req.params.id).then(post => {
+            return (String(req.user._id) == String(post.author))
+                ? Post.findByIdAndUpdate(req.params.id, req.body)
+                : Promise.reject({ message: 'Unauthorized' });
+        }).then(() => {
+            res.redirect(`/?success=Post%20Successfully%Updated`);
         }).catch(error => {
             res.redirect(`/?error=${error.message}`);
         });
     });
 
+    // DELETE a specific post
     app.delete('/posts/:id', (req, res) => {
-        Post.findByIdAndRemove(req.params.id).then(response => {
-            res.redirect('/?success=Post%20was%20successfully%20deleted');
+        console.log('Ay');
+        Post.findById(req.params.id).then(post => {
+            var post = post;
+            return (req.user && String(req.user._id) == String(post.author))
+                ? Post.findByIdAndDelete(req.params.id)
+                : Promise.reject({ message: 'Unauthorized' });
+        }).then(post => {
+            return User.findByIdAndUpdate(post.author, { $pull: { posts: req.params.id } });
+        }).then(() => {
+            res.redirect(`/users/${req.user._id}?success=Post%20was%20successfully%20deleted`);
         }).catch(error => {
-            res.redirect(`/?error=${error.message}`);
+            console.log(error.message);
+            res.redirect(`/users/${req.user._id}?error=${error.message}`);
         });
     });
 

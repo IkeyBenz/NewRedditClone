@@ -5,6 +5,11 @@
     <a class="list-group-item" href="/posts/{{this._id}}">
         <h3>{{this.title}}</h3>
         <p>{{this.createdAt}}</p>
+        {{#ifEquals ../authenticatedUser._id ../user._id}}
+        <form action="/posts/{{this._id}}?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-danger">Delete Post</button>
+        </form>
+        {{/ifEquals}}
     </a>
     {{/each}}
 </ul>
@@ -14,10 +19,11 @@
     <a class="list-group-item" href="/posts/{{this.post._id}}">
         <h3>{{this.content}}</h3>
         <p>{{this.createdAt}}</p>
+        {{#ifEquals authenticatedUser._id user._id}}
+        <form action="/comments/{{this.post._id}}?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-danger">Delete Comment</button>
+        </form>
+        {{/ifEquals}}
     </a>
     {{/each}}
 </ul>
-{{#ifEquals authenticatedUser._id user._id}}
-<h1>YOU ARE AUTHORIZED TO EDIT EVERYTHING ON THIS PAGE :D</h1>
-
-{{/ifEquals}}

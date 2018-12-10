@@ -10,6 +10,8 @@ module.exports = (req, res, next) => {
             return next();
         });
     } else {
+        req.user = null;
+        res.locals.authenticatedUser = null;
         return next();
     }
 }
