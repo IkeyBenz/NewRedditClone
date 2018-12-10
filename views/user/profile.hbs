@@ -20,7 +20,7 @@
         <h3>{{this.content}}</h3>
         <p>{{this.createdAt}}</p>
         {{#ifEquals authenticatedUser._id user._id}}
-        <form action="/comments/{{this.post._id}}?_method=DELETE" method="POST">
+        <form action="/posts/{{this.post}}/comments/{{this._id}}?_method=DELETE" method="POST">
             <button type="submit" class="btn btn-danger">Delete Comment</button>
         </form>
         {{/ifEquals}}
