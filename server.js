@@ -3,6 +3,8 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const app = express();
+const PORT = process.env.PORT || 3000;
+
 require('dotenv').config();
 
 // Middleware
@@ -24,7 +26,7 @@ require('./controllers/users')(app);
 require('./controllers/posts')(app);
 require('./controllers/comments')(app);
 
-app.listen(5000, function () {
+app.listen(PORT, function () {
     require('./data/database');
-    console.log('Running Reddit2 on 5000');
+    console.log(`Running Reddit2 on ${PORT}`);
 });
