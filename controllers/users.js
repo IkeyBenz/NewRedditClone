@@ -30,12 +30,15 @@ module.exports = function (app) {
         User.findOne({ username: req.body.username }, 'username password').then(user => {
             if (user) {
                 user.comparePassword(req.body.password, (error, matched) => {
+                    if (error) {
+                        return res.redirect(`/signin?error=${error.message}`);
+                    }
                     if (matched) {
                         const token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: '60 days' });
                         res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
                         res.redirect('/');
                     } else {
-                        res.redirect(`/signin?error=${error.message}`);
+                        res.redirect(`/signin?error=Incorrect%20Password`);
                     }
                 });
             } else {

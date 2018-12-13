@@ -6,11 +6,9 @@
     </a>
     <p>Created: {{post.createdAt}} Updated: {{post.updatedAt}}</p>
     <h4>Comments:</h4>
-    <ul class="list-group">
-        {{#each post.comments}}
-        {{> comments}}
-        {{/each}}
-    </ul>
+
+    {{> comments post}}
+
     {{#if authenticatedUser}}
     <form action="/posts/{{post._id}}/comments/" method="post">
         <input type="text" name="content" placeholder="Comment as {{authenticatedUser.username}}">
