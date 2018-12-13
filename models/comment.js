@@ -6,7 +6,8 @@ const CommentSchema = new Schema({
     content: { type: String, required: true },
     post: { type: Schema.Types.ObjectId, ref: 'Post' },
     createdAt: { type: Date, default: new Date() },
-    updatedAt: { type: Date, default: new Date() }
+    updatedAt: { type: Date, default: new Date() },
+    comments: [this]
 });
 
 CommentSchema.pre('save', function (next) {

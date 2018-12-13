@@ -1,0 +1,9 @@
+{{#each this.comments}}
+<div class="commentDiv" style="margin-left: 10px;">
+    <p>{{this.content}}</p>
+    <h5>{{this.author.username}}</h5>
+    {{#if this.comments}}
+    {{> comments}}
+    {{/if}}
+</div>
+{{/each}}
