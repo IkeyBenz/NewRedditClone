@@ -1,9 +1,14 @@
-{{#each this.comments}}
-<div class="commentDiv" style="margin-left: 10px;">
+<li class="list-group-item commentDiv" style="margin-left: 10px;">
     <p>{{this.content}}</p>
-    <h5>{{this.author.username}}</h5>
-    {{#if this.comments}}
-    {{> comments}}
+    <h6>{{this.author.username}}</h6>
+    {{#if @root.authenticatedUser}}
+    <form action="/posts/{{this.post}}/comments/{{this._id}}/replies/" method="POST">
+        <input type="text" name="content" placeholder="Reply as {{@root.authenticatedUser.username}}">
+        <input type="hidden" name="author" value="{{@root.authenticatedUser._id}}">
+        <input type="hidden" name="post" value="{{this.post}}">
+    </form>
     {{/if}}
-</div>
-{{/each}}
+    {{#each this.comments}}
+    {{> comments}}
+    {{/each}}
+</li>

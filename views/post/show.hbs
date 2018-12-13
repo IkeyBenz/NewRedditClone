@@ -8,12 +8,7 @@
     <h4>Comments:</h4>
     <ul class="list-group">
         {{#each post.comments}}
-        <ul class="list-group-item">
-            <p>{{this.content}}</p>
-            <a href="/users/{{this.author._id}}">
-                <h6>{{this.author.username}}</h6>
-            </a>
-        </ul>
+        {{> comments}}
         {{/each}}
     </ul>
     {{#if authenticatedUser}}

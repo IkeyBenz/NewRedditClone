@@ -28,7 +28,6 @@ module.exports = function (app) {
 
     // READ specific post
     app.get('/posts/:id', (req, res) => {
-        console.log('yer');
         Post.findById(req.params.id)
             .populate('author')
             .populate({ path: 'comments', populate: { path: 'author' } })

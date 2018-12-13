@@ -45,4 +45,13 @@ module.exports = function (app) {
         });
     });
 
+    app.post('/posts/:postId/comments/:id/replies', (req, res) => {
+        const newComment = new Comment(req.body);
+        newComment.save().then(() => {
+            Comment.findByIdAndUpdate(req.params.id, { $push: { comments: newComment } }).then(() => {
+                res.redirect(`/posts/${req.params.postId}`);
+            });
+        });
+    });
+
 }
